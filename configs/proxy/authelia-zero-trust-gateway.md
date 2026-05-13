@@ -28,6 +28,10 @@ server {
     }
 }
 
+<p align="center">
+  <img src="screenshots/authelia/authelia_MFA-login.png" width="700">
+</p>
+
 ## 2. Le Moteur d'Authentification (Authelia) : MFA & Active Directory
 Authelia est configuré pour exiger systématiquement un Second Facteur (TOTP/WebAuthn) pour accéder au portail clinique. L'authentification primaire est déléguée à l'Active Directory interne via LDAPS.
 
@@ -55,5 +59,13 @@ authentication_backend:
     # [SECURITE] Filtre empêchant les comptes AD désactivés de se connecter
     users_filter: '(&({username_attribute}={input})(objectClass=user)(!(userAccountControl:1.2.840.113556.1.4.803:=2)))'
 
+<p align="center">
+  <img src="screenshots/authelia/authelia_MFA-TOTP.png" width="700">
+</p>
+
 ## 3. Communication sécurisée (Mailpit)
 Pour l'enregistrement des nouveaux employés et la configuration de leur second facteur, Authelia communique de manière chiffrée avec un relais SMTP local (Mailpit dans cet environnement de laboratoire)
+
+<p align="center">
+  <img src="screenshots/authelia/Notif-Mailpit_MFA-Authelia.png" width="700">
+</p>
