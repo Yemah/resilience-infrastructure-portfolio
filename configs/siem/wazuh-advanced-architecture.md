@@ -68,7 +68,7 @@ XML
     <feed-update-interval>60m</feed-update-interval>
   </vulnerability-detection>
 
-![Dashboard Wazuh HIPAA](screenshots/wazuh/wazuh-02-hipaa-alerts-dashboard.png)
+![Dashboard Wazuh HIPAA](screenshots/wazuh/wazuh-02-hipaa-alerts-dashboard.PNG)
 
 ## 4. Capacités SOAR : Remédiation Automatisée (Active Response)
 Afin de réduire le temps de réponse (MTTR) lors d'une attaque, Wazuh est couplé aux pare-feux locaux des endpoints.

@@ -21,7 +21,7 @@ Restart=on-failure
 RestartSec=10
 
 <p align="center">
-  <img src="screenshots/web-app/clinique-web_GUI.png" width="700">
+  <img src="screenshots/web-app/clinique-web_GUI.PNG" width="700">
 </p>
 
 ## 2. Intégration Zero-Trust (Consommation des Headers Authelia)

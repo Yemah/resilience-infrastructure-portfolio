@@ -43,5 +43,5 @@ Hostname=<NOM_DU_SERVEUR_SUPERVISE>
 Note de conception : Sur les équipements ne pouvant pas recevoir d'agent (ex: pares-feux OPNsense, Switchs), la supervision est réalisée via SNMPv3 avec chiffrement et authentification forte, conformément aux recommandations de l'ANSSI.
 
 <p align="center">
-  <img src="screenshots/zabbix/zabbix_monitoring-host.png" width="700">
+  <img src="screenshots/zabbix/zabbix_monitoring-host.PNG" width="700">
 </p>
