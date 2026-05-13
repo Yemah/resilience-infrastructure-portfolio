@@ -1,0 +1,72 @@
+<!-- 
+###############################################################################
+# Wazuh SIEM - Custom Detection Rules 
+# Context: Clinique Le Chatelet (HDS / HIPAA / PCI-DSS Compliance)
+# Description: Maps specific security events to regulatory compliance frameworks
+############################################################################### 
+-->
+<group name="hds,local,">
+
+  <!-- == AUTHENTICATION & ACCESS CONTROL == -->
+  <rule id="100001" level="10" frequency="5" timeframe="120">
+    <if_matched_sid>5716</if_matched_sid>
+    <description>HDS: SSH Brute force detected</description>
+    <group>authentication_failures,pci_dss_10.2.4,hipaa_164.312.d,</group>
+  </rule>
+
+  <!-- Detects out-of-hours AD access (Healthcare context constraint) -->
+  <rule id="100006" level="10">
+    <if_sid>60106</if_sid>
+    <time>10 pm - 6 am</time>
+    <description>HDS: Active Directory connection outside business hours</description>
+    <group>policy_violation,hipaa_164.312.a.1,</group>
+  </rule>
+
+  <!-- Authelia Identity Provider Monitoring -->
+  <rule id="100008" level="12" frequency="3" timeframe="60">
+    <if_matched_sid>100007</if_matched_sid>
+    <description>HDS: Authelia MFA Brute force attempt</description>
+    <group>authentication_failures,hipaa_164.312.d,</group>
+  </rule>
+
+  <!-- == PRIVILEGE ESCALATION == -->
+  <rule id="100011" level="12">
+    <if_sid>60116</if_sid>
+    <description>HDS: Privileged AD Group membership modification</description>
+    <group>pci_dss_10.2.5,hipaa_164.312.a.2,</group>
+  </rule>
+
+  <!-- == FILE INTEGRITY MONITORING (FIM) == -->
+  <!-- Crucial for web defacement protection in the DMZ -->
+  <rule id="100020" level="12">
+    <if_sid>550</if_sid>
+    <field name="file">/var/www/clinique-app</field>
+    <description>HDS: Medical application source code modification detected</description>
+    <group>pci_dss_6.5,hipaa_164.312.c.1,</group>
+  </rule>
+
+  <!-- == NETWORK & FIREWALL MONITORING == -->
+  <rule id="100031" level="12">
+    <if_sid>87701</if_sid>
+    <match>vlan0.444</match>
+    <description>HDS: Unauthorized access attempt to VLAN-BACKUP</description>
+    <group>pci_dss_1.4,hipaa_164.312.a.1,</group>
+  </rule>
+
+  <!-- == ORACLE DATABASE AUDITING == -->
+  <rule id="100042" level="10">
+    <if_sid>1002</if_sid>
+    <match>ORA-01017|ORA-28000</match>
+    <description>HDS: Oracle Database login failure or account locked</description>
+    <group>authentication_failures,hipaa_164.312.d,</group>
+  </rule>
+
+  <!-- == SOC TUNING == -->
+  <!-- Silences expected administrative traffic to prevent alert fatigue -->
+  <rule id="100090" level="0">
+    <if_sid>31533</if_sid>
+    <srcip>172.16.22.115/24</srcip>
+    <description>HDS Tuning: Ignore Zabbix dashboard refresh from IT Admin network</description>
+  </rule>
+
+</group>

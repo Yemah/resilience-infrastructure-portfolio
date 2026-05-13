@@ -1,0 +1,18 @@
+[Unit]
+Description=HDS Health-App - Medical Web Portal
+After=network.target
+
+[Service]
+Type=simple
+User=<APP_SYSTEM_USER>
+WorkingDirectory=/var/www/health-app
+Environment="NODE_ENV=production"
+# Masquage du chemin binaire spécifique à l'utilisateur
+ExecStart=/usr/bin/node /var/www/health-app/server.js
+Restart=on-failure
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

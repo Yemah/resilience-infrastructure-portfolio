@@ -1,0 +1,27 @@
+<!-- 
+###############################################################################
+# Wazuh SIEM - Active Response Configuration
+# Context: Automated threat mitigation (IPS capabilities)
+############################################################################### 
+-->
+
+  <!-- Defines the action: Drops IP using local firewall (iptables/ufw) -->
+  <command>
+    <name>firewall-drop</name>
+    <executable>firewall-drop</executable>
+    <timeout_allowed>yes</timeout_allowed>
+  </command>
+
+  <!-- Associates the trigger (rules) with the action -->
+  <active-response>
+    <command>firewall-drop</command>
+    
+    <!-- Action is executed locally on the targeted agent (Endpoint protection) -->
+    <location>local</location>
+    
+    <!-- Triggers: SSH Brute force (5712) or Multiple Failures (5720) -->
+    <rules_id>5712, 5720</rules_id>
+    
+    <!-- Temporary Ban duration: 3 minutes to discourage bots without permanent lockout -->
+    <timeout>180</timeout>
+  </active-response>

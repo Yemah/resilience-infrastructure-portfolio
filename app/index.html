@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HDS Portal - Gestion Médicale Sécurisée</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        body { background-color: #f4f7f6; font-family: 'Segoe UI', system-ui, sans-serif; }
+        .card { border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .table-hover tbody tr:hover { background-color: #e9ecef; }
+    </style>
+<script src="https://meet.jit.si/external_api.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4 shadow-sm">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand fw-bold" href="#"><i class="fas fa-hospital-user me-2"></i>Medical Portal</a>
+	    <div class="text-white" id="userDisplay"><i class="fas fa-user-md me-2"></i>Chargement...</div>
+        </div>
+    </nav>
+
+    <div class="container-fluid px-4">
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <div class="card border-0 h-100 bg-white shadow-sm" id="statusCard">
+                    <div class="card-body d-flex align-items-center">
+                        <div class="spinner-border text-primary me-3" role="status"></div>
+                        <div><h6 class="text-muted mb-0">Statut Système</h6><p class="mb-0 fw-bold">Connexion...</p></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="card border-0 h-100 bg-white shadow-sm">
+                    <div class="card-body d-flex align-items-center justify-content-around">
+                        <div class="text-center"><h2 class="text-primary mb-0" id="patientCount">-</h2><span class="text-muted small">Dossiers</span></div>
+                        <div class="text-center"><h2 class="text-success mb-0"><i class="fas fa-check-circle"></i></h2><span class="text-muted small">En ligne</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-0 mb-5 shadow-sm">
+            <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+                <h5 class="mb-0 text-primary fw-bold"><i class="fas fa-folder-open me-2"></i>Dossiers Médicaux</h5>
+                <div class="d-flex">
+                    <div class="input-group input-group-sm me-3" style="width: 250px;">
+                        <span class="input-group-text bg-white"><i class="fas fa-search text-muted"></i></span>
+                        <input type="text" id="searchInput" class="form-control border-start-0 ps-0" placeholder="Rechercher (nom, sécu...)" onkeyup="filtrerTableau()">
+                    </div>
+                    <button class="btn btn-primary btn-sm" onclick="ouvrirFormulaire()"><i class="fas fa-user-plus me-1"></i> Nouveau Patient</button>
+                </div>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0" id="patientsTable">
+                        <thead class="table-light text-muted">
+                            <tr><th>ID</th><th>Patient</th><th>Naissance</th><th>N° Sécurité Sociale</th><th>Contact</th><th class="text-end pe-4">Actions</th></tr>
+                        </thead>
+                        <tbody id="patients-container"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="voirModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title"><i class="fas fa-notes-medical me-2"></i>Dossier Médical</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="voirModalBody"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="formModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="patientForm" onsubmit="sauvegarderPatient(event)">
+                    <div class="modal-header bg-dark text-white">
+                        <h5 class="modal-title" id="formModalTitle">Nouveau Patient</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" id="formId">
+                        
+                        <div class="row g-2 mb-3" id="zoneIdentite">
+                            <div class="col-6"><label class="form-label small">Nom</label><input type="text" class="form-control form-control-sm" id="formNom" required></div>
+                            <div class="col-6"><label class="form-label small">Prénom</label><input type="text" class="form-control form-control-sm" id="formPrenom" required></div>
+                            <div class="col-6"><label class="form-label small">Date de naissance</label><input type="date" class="form-control form-control-sm" id="formDate" required></div>
+                            <div class="col-6"><label class="form-label small">N° Sécu (15 chiffres)</label><input type="text" class="form-control form-control-sm" id="formSecu" required maxlength="15"></div>
+                        </div>
+
+                        <div class="row g-2">
+                            <h6 class="text-primary mt-2 mb-1 border-bottom pb-1">Coordonnées (Modifiables)</h6>
+                            <div class="col-6"><label class="form-label small">Téléphone</label><input type="text" class="form-control form-control-sm" id="formTel"></div>
+                            <div class="col-6"><label class="form-label small">Email</label><input type="email" class="form-control form-control-sm" id="formEmail"></div>
+                            <div class="col-12"><label class="form-label small">Adresse postale</label><input type="text" class="form-control form-control-sm" id="formAdresse"></div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Annuler</button>
+                        <button type="submit" class="btn btn-success btn-sm"><i class="fas fa-save me-1"></i> Sauvegarder</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="visioModal" data-bs-backdrop="static" tabindex="-1">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title"><i class="fas fa-video me-2"></i>Téléconsultation en cours</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" onclick="fermerVisio()"></button>
+                </div>
+                <div class="modal-body p-0" style="height: 70vh; background-color: #000;">
+                    <div id="jitsi-container" style="width: 100%; height: 100%;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let modalFormulaire, modalVoir;
+
+        window.addEventListener('load', () => {
+            modalFormulaire = new bootstrap.Modal(document.getElementById('formModal'));
+            modalVoir = new bootstrap.Modal(document.getElementById('voirModal'));
+	    fetchUser();
+            checkHealth();
+            loadPatients();
+            setInterval(checkHealth, 30000);
+        });
+
+        // 1. RECHERCHE EN TEMPS RÉEL (Filtrer)
+        function filtrerTableau() {
+            const filtre = document.getElementById('searchInput').value.toLowerCase();
+            const lignes = document.querySelectorAll('#patients-container tr');
+            lignes.forEach(ligne => {
+                const texte = ligne.innerText.toLowerCase();
+                ligne.style.display = texte.includes(filtre) ? '' : 'none';
+            });
+        }
+
+        // 2. OUVRIR LE FORMULAIRE (Ajout ou Modification)
+        async function ouvrirFormulaire(id = null) {
+            document.getElementById('patientForm').reset();
+            document.getElementById('formId').value = id || '';
+            const zoneIdentite = document.getElementById('zoneIdentite');
+
+            if (id) {
+                // Mode Modification : On cache l'identité (on ne modifie pas l'état civil facilement en clinique)
+                document.getElementById('formModalTitle').innerHTML = '<i class="fas fa-edit me-2"></i>Modifier les coordonnées';
+                zoneIdentite.style.display = 'none'; 
+                document.getElementById('formNom').required = false;
+                document.getElementById('formPrenom').required = false;
+                document.getElementById('formDate').required = false;
+                document.getElementById('formSecu').required = false;
+
+                // Récupération des données actuelles
+                const res = await fetch(`/api/patients/${id}`);
+                const r = await res.json();
+                if(r.success) {
+                    document.getElementById('formTel').value = r.data.TELEPHONE || '';
+                    document.getElementById('formEmail').value = r.data.EMAIL || '';
+                    document.getElementById('formAdresse').value = r.data.ADRESSE || '';
+                }
+            } else {
+                // Mode Ajout
+                document.getElementById('formModalTitle').innerHTML = '<i class="fas fa-user-plus me-2"></i>Nouveau Patient';
+                zoneIdentite.style.display = 'flex';
+                document.getElementById('formNom').required = true;
+                //...
+            }
+            modalFormulaire.show();
+        }
+
+        // 3. SAUVEGARDER (POST ou PUT)
+        async function sauvegarderPatient(e) {
+            e.preventDefault();
+            const id = document.getElementById('formId').value;
+            const url = id ? `/api/patients/${id}` : '/api/patients';
+            const methode = id ? 'PUT' : 'POST';
+
+            const donnees = {
+                nom: document.getElementById('formNom').value,
+                prenom: document.getElementById('formPrenom').value,
+                date_naissance: document.getElementById('formDate').value,
+                numero_secu: document.getElementById('formSecu').value,
+                email: document.getElementById('formEmail').value,
+                telephone: document.getElementById('formTel').value,
+                adresse: document.getElementById('formAdresse').value
+            };
+
+            try {
+                const res = await fetch(url, {
+                    method: methode,
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(donnees)
+                });
+                const r = await res.json();
+                if(r.success) {
+                    modalFormulaire.hide();
+                    loadPatients(); // Rafraîchit le tableau instantanément
+                } else {
+                    alert('Erreur: ' + r.message);
+                }
+            } catch(err) { alert('Erreur réseau'); }
+        }
+
+        // 4. VOIR LE DOSSIER COMPLET
+        async function voirDossier(id) {
+            modalVoir.show();
+            const body = document.getElementById('voirModalBody');
+            body.innerHTML = '<div class="text-center py-3"><div class="spinner-border text-primary"></div></div>';
+            
+            try {
+                const res = await fetch(`/api/patients/${id}`);
+                const r = await res.json();
+                if (r.success) {
+                    const p = r.data;
+                    body.innerHTML = `
+                        <div class="row g-3">
+                            <div class="col-md-6"><label class="text-muted small">Nom complet</label><div class="fw-bold fs-5">${p.NOM} ${p.PRENOM}</div></div>
+                            <div class="col-md-6"><label class="text-muted small">N° Sécu</label><div class="fs-5"><span class="badge bg-light text-dark border"><i class="fas fa-id-card text-primary me-2"></i>${p.NUMERO_SECU}</span></div></div>
+                            <hr class="my-3">
+                            <div class="col-md-4"><label class="text-muted small"><i class="far fa-calendar-alt me-1"></i>Naissance</label><div>${p.DATE_NAISSANCE}</div></div>
+                            <div class="col-md-4"><label class="text-muted small"><i class="fas fa-phone me-1"></i>Téléphone</label><div>${p.TELEPHONE || '-'}</div></div>
+                            <div class="col-md-4"><label class="text-muted small"><i class="fas fa-envelope me-1"></i>Email</label><div>${p.EMAIL || '-'}</div></div>
+                            <div class="col-12 mt-3"><label class="text-muted small"><i class="fas fa-map-marker-alt me-1"></i>Adresse</label><div class="p-2 bg-light rounded border">${p.ADRESSE || '-'}</div></div>
+                            
+                            <div class="col-12 mt-4 text-center btn-visio-container">
+                                <button class="btn btn-success btn-lg" onclick="lancerVisio('${p.NOM}', '${p.PRENOM}')">
+                                    <i class="fas fa-video me-2"></i> Démarrer la téléconsultation
+                                </button>
+                            </div>
+                        </div>`;
+                }
+            } catch(err) { body.innerHTML = '<div class="alert alert-danger">Erreur serveur</div>'; }
+        }
+
+        // Chargement initial (Santé et Liste)
+        async function checkHealth() {
+            try {
+                const res = await fetch('/api/health');
+                const data = await res.json();
+                if (data.status === 'OK') {
+                    document.getElementById('statusCard').innerHTML = '<div class="card-body d-flex align-items-center"><div class="bg-success text-white rounded-circle p-3 me-3"><i class="fas fa-database"></i></div><div><h6 class="text-muted mb-0">Oracle DB</h6><span class="badge bg-success">Connecté</span></div></div>';
+                }
+            } catch (e) {
+                document.getElementById('statusCard').innerHTML = '<div class="card-body d-flex align-items-center"><div class="bg-danger text-white rounded-circle p-3 me-3"><i class="fas fa-exclamation-triangle"></i></div><div><h6 class="text-muted mb-0">Erreur DB</h6><span class="badge bg-danger">Hors Ligne</span></div></div>';
+            }
+        }
+
+	async function fetchUser() {
+            try {
+                const res = await fetch('/api/me');
+                const data = await res.json();
+                
+                if (data.success && data.user.name !== 'Utilisateur Non Authentifié') {
+                    // 1. Affichage de l'utilisateur avec son vrai nom géré par l'AD
+                    document.getElementById('userDisplay').innerHTML = `<i class="fas fa-user-md me-2"></i>${data.user.name} <a href="https://<DOMAIN_PORTAL_WEB>/authelia/logout" class="btn btn-sm btn-danger ms-3" title="Déconnexion"><i class="fas fa-power-off"></i></a>`;
+
+                    // 2. --- LOGIQUE RBAC (Disparition des boutons),Cacher les boutons si l'utilisateur n'est pas autorisé ---
+                    const groupes = data.user.groups || '';
+                    
+                    // Si l'utilisateur n'est NI dans <AD_GROUP_DOCTORS> NI dans <AD_GROUP_STAFF>
+                    if (!groupes.includes('<AD_GROUP_DOCTORS>') && !groupes.includes('<AD_GROUP_STAFF>')) {
+                        
+                        // Cacher le gros bouton bleu "Nouveau Patient"
+                        const btnAjout = document.querySelector('button[onclick="ouvrirFormulaire()"]');
+                        if(btnAjout) btnAjout.style.display = 'none';
+                        
+                        // Injecter un style CSS pour cacher tous les petits boutons "Modifier" du tableau
+                        const style = document.createElement('style');
+                        style.innerHTML = '.btn-outline-secondary { display: none !important; }';
+                        document.head.appendChild(style);
+                    }
+                } else {
+                    document.getElementById('userDisplay').innerHTML = `<i class="fas fa-user-md me-2"></i>${data.user.name}`;
+                }
+            } catch (e) {}
+        }
+
+        async function loadPatients() {
+            try {
+                const res = await fetch('/api/patients');
+                const r = await res.json();
+                const container = document.getElementById('patients-container');
+                if (r.success && r.data.length > 0) {
+                    document.getElementById('patientCount').innerText = r.count;
+                    let html = '';
+                    r.data.forEach(p => {
+                        html += `
+                            <tr>
+                                <td class="ps-4 text-muted">#${p.PATIENT_ID}</td>
+                                <td><div class="fw-bold">${p.NOM} ${p.PRENOM}</div></td>
+                                <td>${p.DATE_NAISSANCE}</td>
+                                <td><span class="badge bg-light text-dark border">${p.NUMERO_SECU}</span></td>
+				<td style="max-width: 200px;">
+                                    <div class="small text-muted text-break"><i class="fas fa-envelope me-1"></i> ${p.EMAIL || '-'}</div>
+                                    <div class="small text-muted"><i class="fas fa-phone me-1"></i> ${p.TELEPHONE || '-'}</div>
+                                </td>                                
+				<td class="text-end pe-4">
+                                    <button class="btn btn-outline-primary btn-sm me-1" onclick="voirDossier(${p.PATIENT_ID})"><i class="fas fa-eye"></i> Dossier</button>
+                                    <button class="btn btn-outline-secondary btn-sm" onclick="ouvrirFormulaire(${p.PATIENT_ID})"><i class="fas fa-edit"></i></button>
+                                </td>
+                            </tr>`;
+                    });
+                    container.innerHTML = html;
+                }
+            } catch(err) { console.error("Erreur", err); }
+        }
+
+	// 5. GESTION DE LA TÉLÉCONSULTATION
+        let visioModalObj;
+        let apiJitsi = null;
+
+        // Initialiser la modale au chargement
+        window.addEventListener('load', () => {
+            visioModalObj = new bootstrap.Modal(document.getElementById('visioModal'));
+        });
+
+        function lancerVisio(nomPatient, prenomPatient) {
+            // On ferme le dossier patient en cours
+            modalVoir.hide();
+            // On ouvre la grande fenêtre vidéo
+            visioModalObj.show();
+
+            // Génération d'un nom de salle unique et sécurisé pour ce patient
+            const roomName = `HDS-Teleconsult-<RANDOM_HASH>-${nomPatient}${prenomPatient}-${Math.floor(Math.random() * 10000)}`;
+
+            const domain = 'meet.jit.si';
+            const options = {
+                roomName: roomName,
+                width: '100%',
+                height: '100%',
+                parentNode: document.querySelector('#jitsi-container'),
+                userInfo: {
+                    displayName: 'Médecin' // Le nom qui s'affichera sur la caméra du médecin
+                },
+                configOverwrite: {
+                    startWithAudioMuted: false,
+                    startWithVideoMuted: false,
+                    prejoinPageEnabled: false // On saute la page d'attente
+                },
+                interfaceConfigOverwrite: {
+                    TOOLBAR_BUTTONS: [
+                        'microphone', 'camera', 'closedcaptions', 'desktop', 'fullscreen',
+                        'fodeviceselection', 'hangup', 'profile', 'chat', 'settings', 'videoquality'
+                    ],
+                }
+            };
+
+            // Démarrage de l'API vidéo
+            apiJitsi = new JitsiMeetExternalAPI(domain, options);
+        }
+
+        function fermerVisio() {
+            if (apiJitsi) {
+                apiJitsi.dispose(); // Coupe proprement la caméra et le micro
+                apiJitsi = null;
+            }
+        }
+    </script>
+</body>
+</html>

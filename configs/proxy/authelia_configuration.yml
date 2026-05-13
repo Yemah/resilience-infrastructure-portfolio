@@ -1,0 +1,80 @@
+###############################################################################
+# Authelia Configuration - Zero Trust Identity Provider
+# Context: Clinique Le Chatelet (HDS / NIS2 Compliance)
+# Role: Enforces MFA before granting access to the medical web application
+###############################################################################
+certificates_directory: '/etc/authelia/certificates/'
+
+server:
+  address: 'tcp://127.0.0.1:9091/authelia'
+
+log:
+  level: debug
+  file_path: '/var/log/authelia/authelia.log'
+
+totp:
+  disable: false
+  issuer: 'Clinique Le Chatelet'
+  algorithm: sha1
+  digits: 6
+  period: 30
+
+access_control:
+  # SECURE BY DEFAULT: Everything is denied unless explicitly allowed
+  default_policy: deny
+  rules:
+    # Requires 2FA (LDAP Password + TOTP) for the main portal
+    - domain: 'portal.clinique-chatelet.local'
+      policy: two_factor
+
+session:
+  secret: 'file:///etc/authelia/secrets/session_secret'
+  cookies:
+    - domain: 'clinique-chatelet.local'
+      authelia_url: 'https://portal.clinique-chatelet.local/authelia'
+      name: 'authelia_session'
+      expiration: 8h
+      inactivity: 1h
+      remember_me: 1M
+      default_redirection_url: 'https://portal.clinique-chatelet.local/'
+
+storage:
+  # Encryption key stored securely with restricted permissions (chmod 640)
+  encryption_key: 'file:///etc/authelia/secrets/encryption_key'
+  local:
+    path: '/var/lib/authelia/db.sqlite3'
+
+notifier:
+  smtp:
+    # Local SMTP catcher (Mailpit) configured for the lab environment
+    address: 'smtp://127.0.0.1:1025'
+    sender: 'Authelia <noreply@clinique-chatelet.local>'
+    subject: '[Clinique Le Châtelet] {title}'
+    disable_require_tls: true
+
+identity_validation:
+  reset_password:
+    jwt_secret: 'file:///etc/authelia/secrets/jwt_secret'
+
+authentication_backend:
+  ldap:
+    implementation: activedirectory
+    address: 'ldaps://ldap.clinique-chatelet.local:636' # Secure LDAP
+    timeout: 5s
+    start_tls: false
+    tls:
+      skip_verify: false
+      minimum_version: TLS1.2
+    base_dn: 'DC=clinique-chatelet,DC=local'
+    user: 'CN=svc_authelia,OU=CLINIQUE_SERVICE_ACCOUNTS,DC=clinique-chatelet,DC=local'
+    password: '<REDACTED_LDAP_SVC_PASSWORD>' # Anonymized for GitHub
+
+    # Filters out disabled accounts (userAccountControl)
+    users_filter: '(&({username_attribute}={input})(objectClass=user)(!(userAccountControl:1.2.840.113556.1.4.803:=2)))'
+    groups_filter: '(&(objectClass=group)(member={dn}))'
+
+    attributes:
+      username: sAMAccountName
+      mail: mail
+      display_name: displayName
+      group_name: cn
