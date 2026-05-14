@@ -60,18 +60,18 @@ Au lieu d'une architecture pure Router-on-a-Stick où TOUTES les VMs passeraient
 │  │ vmx0 (WAN)         → Groupe: WAN65   │ │
 │  │                      VLAN 65 Access │ │
 │  │ vmx1 (Trunk_Link)     → Groupe: TRUNK │ │
-│  │                      VLAN 4095 VGT│ │
-│  │ vmx2 (HA_SYNC)  → Groupe: HA_SYNC   │ │
+│  │                      VLAN 4095 VGT    │
+│  │ vmx2 (HA_SYNC)  → Groupe: HA_SYNC     │
 │  │                      Untagged Access  │ │
 │  └────────────────────────────────────┘ │
 │                                         │
 │  VLANs logiques (créés dans OPNsense) : │
-│  ├── VLAN 111 (SRV)    → 172.16.11.1   │
-│  ├── VLAN 222 (CLIENT) → 172.16.22.1   │
-│  ├── VLAN 333 (DMZ)    → 172.16.33.1   │
-│  ├── VLAN 444 (BACKUP) → 172.16.44.1   │
-│  └── VLAN 555 (GUEST)  → 172.16.55.1   │
-|  └── VLAN 999 (MGMT)   → 172.16.99.1   |
+│  ├── VLAN 111 (SRV)    → XX.XX.11.1   │
+│  ├── VLAN 222 (CLIENT) → XX.XX.22.1   │
+│  ├── VLAN 333 (DMZ)    → XX.XX.33.1   │
+│  ├── VLAN 444 (BACKUP) → XX.XX.44.1   │
+│  └── VLAN 555 (GUEST)  → XX.XX.55.1   │
+|  └── VLAN 999 (MGMT)   → XX.XX.99.1   |
 └─────────────────────────────────────────┘
 ```
 
