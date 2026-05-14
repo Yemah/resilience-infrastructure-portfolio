@@ -75,7 +75,7 @@ Au lieu d'une architecture pure Router-on-a-Stick où TOUTES les VMs passeraient
 └─────────────────────────────────────────┘
 ```
 
-### 2.2. Configuration ESXi sur le serveur
+### 2.2. Configuration ESXi sur le VMware Sphere
 
 **Groupes de ports créés** :
 
