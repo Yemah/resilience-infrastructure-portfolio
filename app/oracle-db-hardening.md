@@ -45,7 +45,7 @@ Aperçu expurgé de la table des patients. La structure permet l'intégration d'
 
 SQL
 SQL> SELECT patient_id, nom, TO_CHAR(date_naissance, 'YYYY') AS annee_naissance FROM CLINIQUE_APP.PATIENTS;
-
+```
 PATIENT_ID NOM        ANNEE_NAISSANCE  EMAIL
 ---------- ---------- ---------------- -------------------------
 4          Lenoir     1980             paul.lenoir@<REDACTED>
