@@ -50,4 +50,8 @@ PATIENT_ID NOM        ANNEE_NAISSANCE  EMAIL
 ---------- ---------- ---------------- -------------------------
 4          Lenoir     1980             paul.lenoir@<REDACTED>
 5          Labelle    1992             celine.labelle@<REDACTED>
+```
+
+![Affichage d'integration du module Jitsi](../../screenshots/web-app/Jitsi-module.png)
+
 
