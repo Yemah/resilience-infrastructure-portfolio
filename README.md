@@ -84,7 +84,7 @@ Le SI est micro-segmenté en \*\*6 VLANs hermétiques\*\* pour limiter la surfac
 
 <p align="center">
 
-&#x20; <img src="architecture/diagrams/clinique\_chatelet\_architecture.PNG" width="700">
+&#x20; <img src="architecture/diagrams/clinique_chatelet_architecture.PNG" width="700">
 
 </p> 
 
