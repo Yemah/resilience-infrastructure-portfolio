@@ -90,3 +90,7 @@ Si le SIEM détecte une attaque par force brute réussie ou répétée (Règles 
     
     <timeout>1800</timeout>
   </active-response>
+```
+
+![Dashboard Wazuh HIPAA](../../screenshots/wazuh/wazuh-05-mitreAttack.png)
+
