@@ -26,7 +26,7 @@ RestartSec=10
 ## 2. Intégration Zero-Trust (Consommation des Headers Authelia)
 L'application Web n'a pas d'écran de connexion propre. Elle fait une confiance aveugle au Reverse Proxy Nginx qui a déjà vérifié le MFA via Authelia. Node.js se contente de lire les headers sécurisés injectés par le proxy pour identifier l'utilisateur et ses groupes Active Directory.
 
-JavaScript
+```JavaScript
 // Extraction sécurisée de l'identité via les Headers injectés par Nginx
 app.use((req, res, next) => {
     req.medecin = {
@@ -36,7 +36,7 @@ app.use((req, res, next) => {
     };
     next();
 });
-
+```
 ---
 
 ## 3. Contrôle d'Accès Basé sur les Rôles (RBAC)
