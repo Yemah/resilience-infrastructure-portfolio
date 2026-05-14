@@ -56,4 +56,4 @@ app.post('/api/patients', async (req, res) => {
 
 ---
 
-![Portail Web Médical](./screenshots/web-app/clinique-web_GUI.png)
+![Portail Web Médical](../screenshots/web-app/clinique-web_GUI.png)
