@@ -44,5 +44,5 @@ Volume traité : 80 GB (VM SRV-ORACLE-DB-01)
 Surveillance : Les échecs de snapshots ou les déconnexions de l'hôte distant sont immédiatement remontés par Zabbix via l'analyse des EventChannels Windows (Règle Wazuh 61061).
 
 <p align="center">
-  <img src="screenshots/veam-backup/Success_backup.PNG" width="700">
+  <img src="screenshots/veam-backup/Success_backup.png" width="700">
 </p>
