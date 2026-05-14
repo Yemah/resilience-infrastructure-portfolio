@@ -12,9 +12,6 @@
 [![NIS2](https://img.shields.io/badge/Conformité-NIS2_Art.21-00A86B?style=for-the-badge)](https://nis2.eu)
 [![RGPD](https://img.shields.io/badge/Conformité-RGPD_Art.32-00A86B?style=for-the-badge)](https://gdpr.eu)
 
-[![Security - HDS Compliance](https://img.shields.io/badge/Compliance-HDS%20%7C%20NIS2%20%7C%20GDPR-blue?style=for-the-badge&logo=shield)](#)
-[![Infrastructure - VMware ESXi](https://img.shields.io/badge/Infrastructure-VMware%20ESXi-619933?style=for-the-badge&logo=vmware)](#)
-[![SOC - Wazuh SIEM](https://img.shields.io/badge/SOC-Wazuh%20SIEM-00A9E0?style=for-the-badge&logo=wazuh)](#)
 
 ## 🏥 1. Contexte & Enjeux Métiers
 La **Clinique Le Châtelet**, établissement de rééducation spécialisé, a dû porter son application médicale monolithique (Oracle + Node.js) sur le Web pour permettre l'accès distant sécurisé aux dossiers patients.
