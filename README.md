@@ -98,4 +98,4 @@ La protection des données HDS repose sur **Veeam Backup & Replication**.
 Steeve WOMO TCHINDA
 🎓 Étudiant Mastère Cybersécurité et Cloud / Master Sécurité Informatique
 🔭 En recherche d'alternance pour Septembre 2026
-🔗 **LinkedIn :** [https://linkedin.com/in/steeve-womo](linkedin.com/in/steeve-womo/) | 📧 **Email :** [mailto:womo.steeven@gmail.com](womo.steeven@gmail.com)
+🔗 **LinkedIn :** [linkedin.com/in/steeve-womo](https://linkedin.com/in/steeve-womo/) | 📧 **Email :** [womo.steeven@gmail.com](mailto:womo.steeven@gmail.com)
