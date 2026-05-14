@@ -1,5 +1,12 @@
 # 📂 Projet Résilience : Infrastructure HDS & Zero-Trust pour la Clinique Le Châtelet
 
+
+[![OPNsense](https://img.shields.io/badge/Firewall-OPNsense_26.1.3-D94F00?style=for-the-badge&logo=opnsense&logoColor=white)](https://opnsense.org)
+[![Wazuh](https://img.shields.io/badge/SIEM-Wazuh_4.14.4-005571?style=for-the-badge&logo=elastic&logoColor=white)](https://wazuh.com)
+[![Zabbix](https://img.shields.io/badge/Monitoring-Zabbix_7.4.9-CC0000?style=for-the-badge&logo=zabbix&logoColor=white)](https://zabbix.com)
+[![Authelia](https://img.shields.io/badge/MFA-Authelia-4F46E5?style=for-the-badge&logo=authelia&logoColor=white)](https://authelia.com)
+[![VMware](https://img.shields.io/badge/Hyperviseur-VMware_ESXi_7.0-607078?style=for-the-badge&logo=vmware&logoColor=white)](https://vmware.com)
+
 [![Security - HDS Compliance](https://img.shields.io/badge/Compliance-HDS%20%7C%20NIS2%20%7C%20GDPR-blue?style=for-the-badge&logo=shield)](#)
 [![Infrastructure - VMware ESXi](https://img.shields.io/badge/Infrastructure-VMware%20ESXi-619933?style=for-the-badge&logo=vmware)](#)
 [![SOC - Wazuh SIEM](https://img.shields.io/badge/SOC-Wazuh%20SIEM-00A9E0?style=for-the-badge&logo=wazuh)](#)
@@ -32,6 +39,35 @@ Le SI est micro-segmenté en **6 VLANs hermétiques** pour limiter la surface d'
 
 ---
 
+## 🔐 Flux d'authentification MFA
+
+```
+Soignant (distant)
+       │
+       │ HTTPS 443
+       ▼
+  Nginx (srv-proxy-01)
+       │
+       │ auth_request → Authelia
+       ▼
+  Authelia MFA ──LDAPS 636──► Active Directory
+       │                      (DC1 + DC2)
+       │ ✅ 2FA validé
+       ▼
+  App Node.js + index.html (srv-web-01)
+       │
+       │ TCP 1521
+       ▼
+  Oracle XE 21c (dossiers patients)
+```
+
+**Chaque accès à un dossier patient nécessite :**
+1. Identifiant AD (`sAMAccountName`)
+2. Mot de passe AD
+3. Code TOTP (Google Authenticator / FreeOTP)
+
+---
+
 ## 🛡️ 3. Stack Sécurité & Conformité (L'Arsenal SecOps)
 
 ### 🔑 Identité & Accès (Zero-Trust)
@@ -51,7 +87,24 @@ Déploiement de **Wazuh** avec une couverture de 100% des agents :
 
 ---
 
-## 📊 4. Supervision & Maintien en Condition Opérationnelle (MCO)
+## 📊 4. Supervision, Alerting & Maintien en Condition Opérationnelle (MCO)
+
+**Zabbix 7.4.9** — 5 templates actifs, 150+ métriques :
+
+| Template | Hôtes | Métriques clés |
+|----------|-------|----------------|
+| Oracle by Zabbix agent 2 | srv-oracle-db-01 | 72 items (SGA, PGA, FRA, sessions) |
+| Linux by Zabbix agent | srv-wazuh, srv-web-01 | CPU, RAM, disk, réseau |
+| Nginx by Zabbix agent active | srv-proxy-01 | Connexions, requêtes, statuts |
+| Network Generic Device SNMP | FW1, FW2 | Interfaces, trafic |
+| Windows by Zabbix Agents | DC1, DC2, Veeam backup & Poste-admin_Win10 | CPU, RAM, disk, réseau |
+
+**Pipeline d'alerting :**
+```
+Zabbix → Postfix (srv-wazuh) → Mailpit (srv-proxy-01:1025)
+```
+500+ alertes reçues — actions configurées : CRITIQUE, DISASTER, HA CARP, Sécurité Auth.
+
 La disponibilité est monitorée par **Zabbix**.
 * **Monitoring Applicatif :** Surveillance profonde de la base **Oracle 21c** (états des tablespaces, sessions actives via compte de service `C##ZBX_MONITOR`).
 * **Alerting temps réel :** Remontée d'alertes via SMTP local (Mailpit) avec templates HTML structurés pour une remédiation rapide.
@@ -77,6 +130,20 @@ La protection des données HDS repose sur **Veeam Backup & Replication**.
 | **Systèmes** | Windows Server 2022 (AD/DNS/GPO), Ubuntu 22.04, Oracle Linux 9 |
 | **Data** | Oracle 21c XE (DBA, SQL*Net, Tablespaces), PostgreSQL |
 | **DevOps** | Node.js (API Backend), Systemd, Bash Scripting, Markdown Documentation |
+
+
+## 🚀 Points Forts du Projet
+
+**Ce qui différencie cette infrastructure :**
+
+- **Double firewall CARP** — basculement automatique FW1→FW2, RTO < 10s
+- **MFA sur dossiers patients** — aucun accès sans TOTP, tracé dans Wazuh
+- **+30 règles SIEM custom HDS** — HIPAA 164.312.x taggé automatiquement
+- **Segmentation VLAN stricte** — DMZ isolée, BACKUP inaccessible depuis CLIENT
+- **Pipeline d'alerting complet** — 500+ alertes Zabbix traitées en production
+- **Matrices de conformité** — HDS · NIS2 · RGPD · HIPAA · PCI-DSS documentés
+- **Résilience & PRA** -- Continuité de services en cas d'incident 
+
 
 ---
 
