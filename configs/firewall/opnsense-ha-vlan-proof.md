@@ -58,6 +58,12 @@ vlan0.444: description: VLAN_BACKUP (opt5)    # Réseau de sauvegarde (Sanctuari
 vlan0.555: description: VLAN_GUEST (opt6)     # WiFi Patients (Accès Internet Only)
 vlan0.999: description: VLAN_MGMT (opt9)      # Administration IT Out-of-Band
 ```
+
+👉 *[Voir la documentation avancée sur la politique de segment appliqué](compliance/matrice-conformite-hds.md)*
+---
+👉 *[Voir la documentation avancée sur la Sécurité de segment appliqué](compliance/matrice-flux-securite.md)*
+---
+
 ## 4. Statistiques du Moteur de Filtrage (pf)
 Le pare-feu applique une politique de Default Deny (Tout ce qui n'est pas explicitement autorisé est bloqué et tracé).
 
