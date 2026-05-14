@@ -143,8 +143,9 @@ Soignant (distant)
 2. Mot de passe AD
 3. Code TOTP (Google Authenticator / FreeOTP)
 
-👉 *[Voir la documentation web](app/srv-web-deployment.md)* et
-👉 *[Voir la documentation Oracle BD](app/oracle-db-hardening.md)*
+👉 *[Voir la documentation sur l'architecture applicative : Portail web](app/srv-web-deployment.md)* et
+
+👉 *[Voir la documentation sur l'infra de donnée Oracle DB](app/oracle-db-hardening.md)*
 
 ---
 
