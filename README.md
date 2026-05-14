@@ -198,13 +198,17 @@ Soignant (distant)
 👉 *[Voir la documentation sur l'infra de donnée Oracle DB](app/oracle-db-hardening.md)*
 ---
 
+---
+
 ### 🕵️ SIEM & Détection (SOC)
 Déploiement de **Wazuh** avec une couverture de 100% des agents :
 * **Conformité automatisée :** Tagging natif des alertes selon les normes HIPAA 164.312, PCI-DSS et HDS.
 * **Active Response (SOAR) :** Bannissement automatique des adresses IP en cas de Brute Force SSH détecté.
 * **FIM (File Integrity Monitoring) :** Surveillance en temps réel des configurations critiques (`/etc/nginx`, `C:\Windows\System32`).
 
+---
 👉 *[Voir l'architecture SIEM avancée de Wazuh](configs/siem/wazuh-advanced-architecture.md)*
+---
 
 ---
 
@@ -230,7 +234,9 @@ La disponibilité est monitorée par **Zabbix**.
 * **Monitoring Applicatif :** Surveillance profonde de la base **Oracle 21c** (états des tablespaces, sessions actives via compte de service `C##ZBX_MONITOR`).
 * **Alerting temps réel :** Remontée d'alertes via SMTP local (Mailpit) avec templates HTML structurés pour une remédiation rapide.
 
+---
 👉 *[Voir la stratégie d'alerte Zabbix SMTP](configs/monitoring/zabbix-alerting-strategy.md)*
+---
 
 ---
 
@@ -240,7 +246,9 @@ La protection des données HDS repose sur **Veeam Backup & Replication**.
 * **Backup Agentless :** Utilisation des APIs VMware vSphere pour des clichés instantanés (Snapshots) avec Change Block Tracking (CBT).
 * **Base de données :** Migration sur PostgreSQL 17 pour des performances de catalogue accrues.
 
+---
 👉 *[Voir la documentation avancée du PRA](configs/backup/veeam-resilience-pra.md)*
+---
 
 ---
 
