@@ -12,11 +12,11 @@ InterfaceAlias              IPAddress    PrefixLength
 --------------              ---------    ------------
 Ethernet0                   172.16.44.70           24  # VLAN 444 (Isolé)
 Loopback Pseudo-Interface 1 127.0.0.1               8
-
+```
 ## 2. Architecture des Services (Résilience interne)
 Pour garantir des performances optimales et une sécurité accrue, l'infrastructure Veeam s'appuie sur une base de données PostgreSQL 17 (abandon de MS SQL Express). Tous les micro-services Veeam (Transport, Catalog, ThreatHunter) sont gérés de manière autonome.
 
-PowerShell
+```PowerShell
 PS C:\> Get-Service | Where-Object {$_.Name -like "Veeam*" -or $_.Name -like "PostgreSQL*"} | Select-Object Name, Status
 
 Name                            Status
@@ -27,7 +27,7 @@ VeeamBrokerSvc                  Running
 VeeamThreatHunterSvc            Running
 VeeamTransportSvc               Running
 # [28 autres services actifs liés au PRA]
-
+```
 ## 3. Stratégie de Sauvegarde (VMware vSphere API)
 Les jobs de sauvegarde opèrent au niveau de l'hyperviseur (Mode "Agentless"). Ils capturent l'intégralité des machines virtuelles en effectuant des snapshots via le port TCP 902 (NFC) de l'ESXi.
 
