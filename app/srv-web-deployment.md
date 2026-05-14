@@ -34,6 +34,8 @@ app.use((req, res, next) => {
     next();
 });
 
+-----
+
 ## 3. Contrôle d'Accès Basé sur les Rôles (RBAC)
 Une fois l'identité transmise par l'Active Directory, l'API backend vérifie les droits avant toute modification de données (HDS).
 
@@ -49,4 +51,5 @@ app.post('/api/patients', async (req, res) => {
     // ... Logique d'insertion Oracle ...
 });
 
+-----
 ![Portail Web Médical](./screenshots/web-app/clinique-web_GUI.png)
