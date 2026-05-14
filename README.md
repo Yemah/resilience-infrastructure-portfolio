@@ -116,7 +116,42 @@ Le SI est micro-segmenté en **6 VLANs hermétiques** pour limiter la surface d'
 
 ---
 
-## 🛡️ 3. Stack Sécurité & Conformité (L'Arsenal SecOps)
+## 🛡️ 3. Stack Sécurité & Conformité 
+
+>**Vue d'ensemble**
+
+**Architecture adoptée(ARCHITECTURE APPLICATIVE 3-TIERS)** : Séparation stricte des responsabilités en 3 couches isolées.
+
+```
+┌─────────────────────────────────────────────────────┐
+│  TIERS 1 : Sécurité & Routage (DMZ)                │
+│  SRV-PROXY-01 : XX.XX.33.10                        │
+│  ├── nginx-proxy (reverse proxy + SSL/TLS)         │
+│  ├── authelia (MFA + LDAP)                         │
+│  └── mailpit (SMTP fake)                           │
+└─────────────────────────────────────────────────────┘
+              ↓ Forward si authentifié
+┌─────────────────────────────────────────────────────┐
+│  TIERS 2 : Logique Applicative (DMZ)               │
+│  SRV-WEB-01 : XX.XX.33.20                          │
+│  ├── app-frontend (SPA HTML/CSS/JS)                │
+│  └── app-backend (API Node.js + RBAC)              │
+└─────────────────────────────────────────────────────┘
+              ↓ Requêtes SQL
+┌─────────────────────────────────────────────────────┐
+│  TIERS 3 : Données Sensibles (VLAN SRV - Backend)  │
+│  SRV-ORACLE-DB-01 : XX.XX.11.20                    │
+│  └── Oracle Database 21c XE                        │
+│       • 2 patients en base (Labelle, Lenoir)       │
+└─────────────────────────────────────────────────────┘
+```
+
+**Justification sécurité** :
+- ✅ **Isolation Oracle** : La base de données n'est PAS dans la DMZ
+- ✅ **Règle firewall stricte** : Seul SRV-WEB-01 peut atteindre Oracle (port 1521)
+- ✅ **Pas d'accès direct** : Même si le proxy est compromis, il ne peut pas accéder à Oracle
+- ✅ **Défense en profondeur** : 3 couches de sécurité à franchir
+
 
 ### 🔑 Identité & Accès (Zero-Trust)
 Mise en place d'une passerelle d'accès sécurisée interdisant tout flux direct vers l'application :
@@ -127,7 +162,7 @@ Mise en place d'une passerelle d'accès sécurisée interdisant tout flux direct
 
 ---
 
-## 🔐 Flux d'authentification MFA
+### 🔐 Flux d'authentification MFA
 
 ```
 Soignant (distant)
