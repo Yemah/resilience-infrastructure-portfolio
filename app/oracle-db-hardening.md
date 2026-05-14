@@ -15,21 +15,22 @@ CLINIQUE_APP                   OPEN             -- Compte de service de l'applic
 MDDATA                         LOCKED           -- Verrouillé
 ORDSYS                         LOCKED           -- Verrouillé
 -- [20+ autres comptes systèmes verrouillés]
+```
 
 ## 2. Isolation du Stockage (Tablespace Dédié)
 Les données médicales ne sont pas stockées dans les espaces de données par défaut. Un fichier de données dédié de 1 Go (clinique_data01.dbf) a été provisionné pour isoler les données de l'application et prévenir la saturation du système.
 
-Plaintext
+```Plaintext
 NAME                                         TAILLE_MB
 -------------------------------------------- ----------
 /opt/oracle/oradata/XE/system01.dbf          1360
 /opt/oracle/oradata/XE/sysaux01.dbf          1020
 /opt/oracle/oradata/XE/clinique_data01.dbf   1024  <-- Tablespace Métier
-
+```
 ## 3. Configuration du Listener Réseau
 Le Listener Oracle écoute sur le port standard TCP:1521. L'accès à ce port est strictement filtré par le pare-feu OPNsense, n'autorisant que l'adresse IP du SRV-WEB-01 en provenance de la DMZ.
 
-Ini, TOML
+```Ini, TOML
 # /opt/oracle/homes/OraDBHome21cXE/network/admin/listener.ora
 LISTENER =
   (DESCRIPTION_LIST =
@@ -38,7 +39,7 @@ LISTENER =
       (ADDRESS = (PROTOCOL = IPC)(KEY = EXTPROC1521))
     )
   )
-
+```
 ## 4. Anonymisation des Données (Conformité RGPD)
 Aperçu expurgé de la table des patients. La structure permet l'intégration d'un frontend Web pour la gestion des rendez-vous et la téléconsultation (module Jitsi).
 
@@ -49,3 +50,4 @@ PATIENT_ID NOM        ANNEE_NAISSANCE  EMAIL
 ---------- ---------- ---------------- -------------------------
 4          Lenoir     1980             paul.lenoir@<REDACTED>
 5          Labelle    1992             celine.labelle@<REDACTED>
+
