@@ -52,7 +52,7 @@ Déploiement de **Wazuh** avec une couverture de 100% des agents :
 ---
 
 ## 📊 4. Supervision & Maintien en Condition Opérationnelle (MCO)
-La disponibilité est monitorée par le couple **Zabbix + Grafana**.
+La disponibilité est monitorée par **Zabbix**.
 * **Monitoring Applicatif :** Surveillance profonde de la base **Oracle 21c** (états des tablespaces, sessions actives via compte de service `C##ZBX_MONITOR`).
 * **Alerting temps réel :** Remontée d'alertes via SMTP local (Mailpit) avec templates HTML structurés pour une remédiation rapide.
 
@@ -72,7 +72,7 @@ La protection des données HDS repose sur **Veeam Backup & Replication**.
 
 | Domaine | Technologies maîtrisées |
 | :--- | :--- |
-| **Réseau** | OPNsense (CARP/pfSync), VLANs 802.1Q, NAT, Routage Statique |
+| **Réseau** | OPNsense (CARP/pfSync), VLANs 802.1Q(Router-on-Stick), NAT, Routage Statique |
 | **Sécurité** | Wazuh (SIEM), Authelia (MFA), Nginx (Proxy), OpenVPN, Suricata (IDS/IPS) |
 | **Systèmes** | Windows Server 2022 (AD/DNS/GPO), Ubuntu 22.04, Oracle Linux 9 |
 | **Data** | Oracle 21c XE (DBA, SQL*Net, Tablespaces), PostgreSQL |
@@ -96,6 +96,6 @@ La protection des données HDS repose sur **Veeam Backup & Replication**.
 
 📬 Contact
 Steeve WOMO TCHINDA
-🎓 Étudiant Mastère Cybersécurité et Cloud / Master Sécurité Informatique
+🎓 Étudiant Mastère Cybersécurité et Cloud
 🔭 En recherche d'alternance pour Septembre 2026
 🔗 **LinkedIn :** [linkedin.com/in/steeve-womo](https://linkedin.com/in/steeve-womo/) | 📧 **Email :** [womo.steeven@gmail.com](mailto:womo.steeven@gmail.com)
