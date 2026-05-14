@@ -160,8 +160,8 @@ Mise en place d'une passerelle d'accès sécurisée interdisant tout flux direct
 * **Nginx Reverse Proxy :** Terminaison TLS 1.3 et filtrage des requêtes.
 * **Authelia MFA :** Authentification à deux facteurs obligatoire (TOTP/WebAuthn) couplée à l'Active Directory via LDAPS.
 
+---
 👉 *[Voir la documentation de la politique Zero-Trust](configs/proxy/authelia-zero-trust-gateway.md)*
-
 ---
 
 ### 🔐 Flux d'authentification MFA
@@ -191,10 +191,11 @@ Soignant (distant)
 2. Mot de passe AD
 3. Code TOTP (Google Authenticator / FreeOTP)
 
+---
 👉 *[Voir la documentation sur l'architecture applicative : Portail web](app/srv-web-deployment.md)* et
-
+---
+---
 👉 *[Voir la documentation sur l'infra de donnée Oracle DB](app/oracle-db-hardening.md)*
-
 ---
 
 ### 🕵️ SIEM & Détection (SOC)
