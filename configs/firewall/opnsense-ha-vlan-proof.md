@@ -59,9 +59,9 @@ vlan0.555: description: VLAN_GUEST (opt6)     # WiFi Patients (Accès Internet O
 vlan0.999: description: VLAN_MGMT (opt9)      # Administration IT Out-of-Band
 ```
 
-👉 *[Voir la documentation avancée sur la politique de segment appliqué](../../compliance/matrice-conformite-hds.md)*
+👉 *[Voir la documentation avancée sur la Matrice de Conformité](../../compliance/matrice-conformite-hds.md)*
 ---
-👉 *[Voir la documentation avancée sur la Sécurité de segment appliqué](../../compliance/matrice-flux-securite.md)*
+👉 *[Voir la documentation avancée sur la Matrice de flux](../../compliance/matrice-flux-securite.md)*
 ---
 
 ## 4. Statistiques du Moteur de Filtrage (pf)
