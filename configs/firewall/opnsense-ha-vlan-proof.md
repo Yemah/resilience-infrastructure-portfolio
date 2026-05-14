@@ -33,7 +33,7 @@ root@OPNsense-FW2:~ # ifconfig | grep -A 2 -i 'carp'
 ---
 
 <p align="center">
-  <img src="../../screenshots/opnsense/opnsense-01-carp-status.PNG" width="700">
+  <img src="../../screenshots/opnsense/opnsense-01-carp-status.png" width="700">
 </p>
 
 ## 2. Synchronisation d'État (Stateful Failover via pfSync)
