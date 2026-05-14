@@ -114,6 +114,8 @@ Le SI est micro-segmenté en **6 VLANs hermétiques** pour limiter la surface d'
   <img src="architecture/diagrams/clinique_chatelet_architecture.png" width="800" alt="Schéma de l'architecture">
 </p>
 
+👉 *[Voir la documentation avancée sur l'architecture Réseau](configs/firewall/opnsense-ha-vlan-proof.md)*
+
 ---
 
 ## 🛡️ 3. Stack Sécurité & Conformité 
