@@ -116,6 +116,17 @@ Le SI est micro-segmenté en **6 VLANs hermétiques** pour limiter la surface d'
 
 ---
 
+## 🛡️ 3. Stack Sécurité & Conformité (L'Arsenal SecOps)
+
+### 🔑 Identité & Accès (Zero-Trust)
+Mise en place d'une passerelle d'accès sécurisée interdisant tout flux direct vers l'application :
+* **Nginx Reverse Proxy :** Terminaison TLS 1.3 et filtrage des requêtes.
+* **Authelia MFA :** Authentification à deux facteurs obligatoire (TOTP/WebAuthn) couplée à l'Active Directory via LDAPS.
+
+👉 *[Voir la documentation de la politique Zero-Trust](configs/proxy/authelia-zero-trust-gateway.md)*
+
+---
+
 ## 🔐 Flux d'authentification MFA
 
 ```
@@ -148,15 +159,6 @@ Soignant (distant)
 👉 *[Voir la documentation sur l'infra de donnée Oracle DB](app/oracle-db-hardening.md)*
 
 ---
-
-## 🛡️ 3. Stack Sécurité & Conformité (L'Arsenal SecOps)
-
-### 🔑 Identité & Accès (Zero-Trust)
-Mise en place d'une passerelle d'accès sécurisée interdisant tout flux direct vers l'application :
-* **Nginx Reverse Proxy :** Terminaison TLS 1.3 et filtrage des requêtes.
-* **Authelia MFA :** Authentification à deux facteurs obligatoire (TOTP/WebAuthn) couplée à l'Active Directory via LDAPS.
-
-👉 *[Voir la documentation de la politique Zero-Trust](configs/proxy/authelia-zero-trust-gateway.md)*
 
 ### 🕵️ SIEM & Détection (SOC)
 Déploiement de **Wazuh** avec une couverture de 100% des agents :
