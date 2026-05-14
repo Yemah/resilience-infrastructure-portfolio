@@ -18,6 +18,8 @@ La **Clinique Le Châtelet**, établissement de rééducation spécialisé, a d�
 
 **Le défi :** Exposer des données de santé ultra-critiques (HDS) sur Internet tout en garantissant une disponibilité de 99.99% et une étanchéité totale face aux ransomwares.
 
+**Solution déployée :** Une infrastructure sécurisée complète, segmentée en VLANs, avec MFA, Monitoring, SIEM et haute disponibilité.
+
 ---
 
 ## 🏗️ 2. Architecture Globale (Design Haute Disponibilité)
