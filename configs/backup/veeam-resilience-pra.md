@@ -45,4 +45,4 @@ Surveillance : Les échecs de snapshots ou les déconnexions de l'hôte distant 
 
 ---
 
-![Success Job backup](.../screenshots/veeam-backup/Success_backup.PNG)
+![Success Job backup](.../screenshots/veeam-backup/Success_backup.png)
