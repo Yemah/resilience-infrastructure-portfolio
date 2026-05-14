@@ -7,6 +7,11 @@
 [![Authelia](https://img.shields.io/badge/MFA-Authelia-4F46E5?style=for-the-badge&logo=authelia&logoColor=white)](https://authelia.com)
 [![VMware](https://img.shields.io/badge/Hyperviseur-VMware_ESXi_7.0-607078?style=for-the-badge&logo=vmware&logoColor=white)](https://vmware.com)
 
+[![HDS](https://img.shields.io/badge/Conformité-HDS-00A86B?style=for-the-badge)](https://esante.gouv.fr)
+[![HIPAA](https://img.shields.io/badge/Conformité-HIPAA_164.312.x-00A86B?style=for-the-badge)](https://www.hhs.gov/hipaa)
+[![NIS2](https://img.shields.io/badge/Conformité-NIS2_Art.21-00A86B?style=for-the-badge)](https://nis2.eu)
+[![RGPD](https://img.shields.io/badge/Conformité-RGPD_Art.32-00A86B?style=for-the-badge)](https://gdpr.eu)
+
 [![Security - HDS Compliance](https://img.shields.io/badge/Compliance-HDS%20%7C%20NIS2%20%7C%20GDPR-blue?style=for-the-badge&logo=shield)](#)
 [![Infrastructure - VMware ESXi](https://img.shields.io/badge/Infrastructure-VMware%20ESXi-619933?style=for-the-badge&logo=vmware)](#)
 [![SOC - Wazuh SIEM](https://img.shields.io/badge/SOC-Wazuh%20SIEM-00A9E0?style=for-the-badge&logo=wazuh)](#)
