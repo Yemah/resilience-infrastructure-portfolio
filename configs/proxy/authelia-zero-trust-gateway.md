@@ -66,12 +66,14 @@ authentication_backend:
 ---
 
 <p align="center">
-  <img src="../../screenshots/authelia/authelia_MFA-TOTP.PNG" width="700">
+  <img src="../../screenshots/authelia/authelia_MFA-TOTP.png" width="700">
 </p>
 
 ## 3. Communication sécurisée (Mailpit)
 Pour l'enregistrement des nouveaux employés et la configuration de leur second facteur, Authelia communique de manière chiffrée avec un relais SMTP local (Mailpit dans cet environnement de laboratoire)
 
+---
+
 <p align="center">
-  <img src="screenshots/authelia/Notif-Mailpit_MFA-Authelia.png" width="700">
+  <img src="../../screenshots/authelia/Notif-Mailpit_MFA-Authelia.png" width="700">
 </p>
