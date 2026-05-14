@@ -43,9 +43,9 @@ LISTENER =
 ## 4. Anonymisation des Données (Conformité RGPD)
 Aperçu expurgé de la table des patients. La structure permet l'intégration d'un frontend Web pour la gestion des rendez-vous et la téléconsultation (module Jitsi).
 
-SQL
+```SQL
 SQL> SELECT patient_id, nom, TO_CHAR(date_naissance, 'YYYY') AS annee_naissance FROM CLINIQUE_APP.PATIENTS;
-```
+
 PATIENT_ID NOM        ANNEE_NAISSANCE  EMAIL
 ---------- ---------- ---------------- -------------------------
 4          Lenoir     1980             paul.lenoir@<REDACTED>
