@@ -52,6 +52,6 @@ PATIENT_ID NOM        ANNEE_NAISSANCE  EMAIL
 5          Labelle    1992             celine.labelle@<REDACTED>
 ```
 
-![Affichage d'integration du module Jitsi](../../screenshots/web-app/Jitsi-module.png)
+![Affichage d'integration du module Jitsi](../screenshots/web-app/Jitsi-module.png)
 
 
