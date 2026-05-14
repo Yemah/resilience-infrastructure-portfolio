@@ -11,7 +11,7 @@ Les agents ne sont pas gérés unitairement mais segmentés par rôle métier po
 wazuh_admin@srv-wazuh:~$ sudo /var/ossec/bin/agent_groups -l
 Groups (7):
   Admin_Workstation (1)
-  Backup (0)
+  Backup (1)           # Veeam Backup 
   DC_Servers (2)       # Contrôleurs de domaine
   Database (1)         # Base Oracle HDS
   Monitoring (1)       # Zabbix
