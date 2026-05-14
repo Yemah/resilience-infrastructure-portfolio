@@ -19,6 +19,7 @@ Environment="NODE_ENV=production"
 ExecStart=/home/web_admin/.nvm/versions/node/v20.20.0/bin/node /var/www/clinique-app/server.js
 Restart=on-failure
 RestartSec=10
+```
 
 ---
 
