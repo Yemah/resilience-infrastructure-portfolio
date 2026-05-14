@@ -19,6 +19,9 @@ Groups (7):
   default (10)
 ```
 
+![Dashboard Wazuh Agent](../../screenshots/wazuh/wazuh-04-agents.png)
+
+
 ## 2. Infrastructure as Code : Configuration Centralisée (agent.conf)
 Pour garantir la cohérence des politiques de sécurité (Baseline), la configuration n'est pas modifiée sur les terminaux. Elle est poussée dynamiquement par le Manager (/var/ossec/etc/shared/default/agent.conf).
 
