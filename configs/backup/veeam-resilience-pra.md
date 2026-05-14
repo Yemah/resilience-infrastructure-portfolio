@@ -42,5 +42,6 @@ Cible : REPO-BACKUP (Dépôt de stockage local)
 Volume traité : 80 GB (VM SRV-ORACLE-DB-01)
 
 Surveillance : Les échecs de snapshots ou les déconnexions de l'hôte distant sont immédiatement remontés par Zabbix via l'analyse des EventChannels Windows (Règle Wazuh 61061).
+---
 
 ![Success Job backup](..screenshots/veam-backup/Success_backup.PNG)
