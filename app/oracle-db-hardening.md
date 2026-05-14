@@ -54,4 +54,6 @@ PATIENT_ID NOM        ANNEE_NAISSANCE  EMAIL
 
 ![Affichage d'integration du module Jitsi](../screenshots/web-app/Jitsi-module.png)
 
+---
 
+![Affichage d'integration du module Jitsi](../screenshots/web-app/Test-teleconsultation_app.png)
