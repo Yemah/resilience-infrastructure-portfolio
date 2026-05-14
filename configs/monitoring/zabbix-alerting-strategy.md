@@ -32,7 +32,7 @@ Les emails d'alerte ont été structurés pour fournir immédiatement le context
 ---
 
 <p align="center">
-  <img src="screenshots/zabbix/zabbix-smtp-config.png" width="700">
+  <img src="../../screenshots/zabbix/zabbix-smtp-config.png" width="700">
 </p>
 
 ---
@@ -41,4 +41,4 @@ Les emails d'alerte ont été structurés pour fournir immédiatement le context
 
 ---
 
-![Alerte Zabbix Mailpit](./screenshots/zabbix/zabbixMailpit-alert.png)
+![Alerte Zabbix Mailpit](../../screenshots/zabbix/zabbixMailpit-alert.png)
