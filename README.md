@@ -115,9 +115,7 @@ Le SI est micro-segmenté en **6 VLANs hermétiques** pour limiter la surface d'
 </p>
 
 ---
-
 👉 *[Voir la documentation avancée sur l'architecture Réseau](configs/firewall/opnsense-ha-vlan-proof.md)*
-
 ---
 
 ## 🛡️ 3. Stack Sécurité & Conformité 
