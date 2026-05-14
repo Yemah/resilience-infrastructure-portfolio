@@ -196,6 +196,8 @@ La protection des données HDS repose sur **Veeam Backup & Replication**.
 * **Backup Agentless :** Utilisation des APIs VMware vSphere pour des clichés instantanés (Snapshots) avec Change Block Tracking (CBT).
 * **Base de données :** Migration sur PostgreSQL 17 pour des performances de catalogue accrues.
 
+👉 *[Voir la documentation avancée du PRA](configs/backup/veeam-resilience-pra.md)*
+
 ---
 
 ## 🛠️ 6. Compétences Démontrées
