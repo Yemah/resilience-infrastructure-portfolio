@@ -120,6 +120,13 @@ Le SI est micro-segmenté en **6 VLANs hermétiques** pour limiter la surface d'
 👉 *[Voir la documentation avancée sur l'architecture Réseau](configs/firewall/opnsense-ha-vlan-proof.md)*
 ---
 
+### 🖥️ 2.3. Infrastructure Core & Identité (Tier 0)
+L'Active Directory (DC1/DC2) centralise les identités et sécurise les postes de travail via des GPOs restrictives. L'authentification LDAP est chiffrée (LDAPS).
+
+---
+👉 *[Voir la documentation : Durcissement Active Directory & GPO](configs/systems/active-directory-hardening.md)*
+---
+
 ## 🛡️ 3. Stack Sécurité & Conformité 
 
 >**Vue d'ensemble**
