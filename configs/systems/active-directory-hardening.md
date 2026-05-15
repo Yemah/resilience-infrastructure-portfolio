@@ -41,7 +41,8 @@ CLINIQUE_COMPUTERS        OU=CLINIQUE_COMPUTERS,DC=clinique-chatelet,DC=local
 
 CLINIQUE_SERVICE_ACCOUNTS OU=CLINIQUE_SERVICE_ACCOUNTS,DC=clinique-chatelet,DC=local
 ```
-📸 Preuve de concept : L'organisation stricte de l'Active Directory.
+
+![Active Directory Users & Computers - OU](../../screenshots/ad-ds/ADUC-OU.png)
 
 ## 3. Stratégie de Sécurité Globale (GPO & Mots de passe)
 L'infrastructure s'appuie sur une flotte de Stratégies de Groupe (GPO) dédiées exclusivement au durcissement (Hardening) du système d'information, s'inspirant des recommandations de l'ANSSI.
@@ -66,7 +67,8 @@ LockoutThreshold         : 5 tentatives échouées
 LockoutDuration          : 00:30:00 (30 minutes de verrouillage)
 LockoutObservationWindow : 00:30:00
 ```
-📸 Preuve de concept : Le tableau de bord de Gestion des Stratégies de Groupe.
+
+!Group Policy Mgmt - GPO](../../screenshots/ad-ds/GPMC-GPO.png)
 
 ## 4. Sécurisation des Flux d'Authentification (LDAPS)
 L'authentification en clair (LDAP, port 389) a été proscrite pour les applications tierces. Les requêtes de la passerelle Authelia vers l'annuaire sont encapsulées dans un tunnel TLS via LDAPS.
@@ -80,4 +82,5 @@ LocalAddress LocalPort  State
 ------------ ---------  -----
 0.0.0.0            636 Listen
 ```
-📸 Preuve de concept : Émission du certificat ou validation de la connexion chiffrée.
+
+![Autorité de Certification - LDAPS](../../screenshots/ad-ds/ADCS-LDAPS.png)
