@@ -15,13 +15,14 @@ Maître des noms de domaine      DC1.clinique-chatelet.local
 Contrôleur domaine princip.     DC1.clinique-chatelet.local
 Gestionnaire du pool RID        DC1.clinique-chatelet.local
 Maître d’infrastructure         DC1.clinique-chatelet.local
-Santé de la réplication (Repadmin) :
+```
+**Santé de la réplication (Repadmin) :**
 La réplication inter-sites est surveillée. Les derniers rapports n'indiquent aucun échec (0 / 5) avec un delta de synchronisation optimal (moins de 20 minutes) entre DC1 et DC2.
 
-2. Modèle d'Administration et Segmentation Logique (OU)
+## 2. Modèle d'Administration et Segmentation Logique (OU)**
 L'arborescence de l'annuaire a été construite selon un modèle de moindre privilège, séparant strictement les comptes de services, les postes de travail et les utilisateurs métiers.
 
-Plaintext
+```Plaintext
 Name                      DistinguishedName
 ----                      -----------------
 CLINIQUE_USERS            OU=CLINIQUE_USERS,DC=clinique-chatelet,DC=local
@@ -39,41 +40,44 @@ CLINIQUE_COMPUTERS        OU=CLINIQUE_COMPUTERS,DC=clinique-chatelet,DC=local
  └── Workstations         OU=Workstations,OU=CLINIQUE_COMPUTERS...
 
 CLINIQUE_SERVICE_ACCOUNTS OU=CLINIQUE_SERVICE_ACCOUNTS,DC=clinique-chatelet,DC=local
+```
 📸 Preuve de concept : L'organisation stricte de l'Active Directory.
 
-3. Stratégie de Sécurité Globale (GPO & Mots de passe)
+## 3. Stratégie de Sécurité Globale (GPO & Mots de passe)
 L'infrastructure s'appuie sur une flotte de Stratégies de Groupe (GPO) dédiées exclusivement au durcissement (Hardening) du système d'information, s'inspirant des recommandations de l'ANSSI.
 
-GPOs de Durcissement Actives :
+**GPOs de Durcissement Actives :**
 
-GPO-Security-Disable-SMBv1 : Mitigation contre les vers réseau (ex: WannaCry).
+- ***GPO-Security-Disable-SMBv1 :*** Mitigation contre les vers réseau (ex: WannaCry).
 
-GPO-BitLocker-NoTPM : Chiffrement obligatoire des disques des postes de travail.
+- ***GPO-BitLocker-NoTPM :*** Chiffrement obligatoire des disques des postes de travail.
 
-GPO-Security-Audit-Policy : Remontée avancée des événements vers le SIEM Wazuh.
+- ***GPO-Security-Audit-Policy :*** Remontée avancée des événements vers le SIEM Wazuh.
 
-GPO-Workstations-Hardening : Verrouillage des ports USB et restriction des droits administrateurs locaux.
+- ***GPO-Workstations-Hardening :*** Verrouillage des ports USB et restriction des droits administrateurs locaux.
 
-Politique de Verrouillage (Mitigation Brute-Force) :
+**Politique de Verrouillage (Mitigation Brute-Force) :**
 Pour protéger l'annuaire contre les attaques par force brute ou pulvérisation de mots de passe (Password Spraying), des seuils stricts sont configurés :
 
-PowerShell
+```PowerShell
 ComplexityEnabled        : True
 MinPasswordLength        : 7
 LockoutThreshold         : 5 tentatives échouées
 LockoutDuration          : 00:30:00 (30 minutes de verrouillage)
 LockoutObservationWindow : 00:30:00
+```
 📸 Preuve de concept : Le tableau de bord de Gestion des Stratégies de Groupe.
 
-4. Sécurisation des Flux d'Authentification (LDAPS)
+## 4. Sécurisation des Flux d'Authentification (LDAPS)
 L'authentification en clair (LDAP, port 389) a été proscrite pour les applications tierces. Les requêtes de la passerelle Authelia vers l'annuaire sont encapsulées dans un tunnel TLS via LDAPS.
 
 Vérification de l'écoute du port sécurisé (636) sur le contrôleur :
 
-PowerShell
+```PowerShell
 PS C:\> Get-NetTCPConnection -LocalPort 636 -ErrorAction SilentlyContinue | Select-Object LocalAddress, LocalPort, State
 
 LocalAddress LocalPort  State
 ------------ ---------  -----
 0.0.0.0            636 Listen
+```
 📸 Preuve de concept : Émission du certificat ou validation de la connexion chiffrée.
