@@ -29,10 +29,16 @@ Les emails d'alerte ont été structurés pour fournir immédiatement le context
 * `{EVENT.SEVERITY}` : Niveau d'urgence (Average, High, Disaster).
 * `{ITEM.VALUE}` : Valeur technique ayant déclenché l'alerte.
 
+---
+
 <p align="center">
-  <img src="screenshots/zabbix/zabbix-smtp-config.PNG" width="700">
+  <img src="../../screenshots/zabbix/zabbix-smtp-config.png" width="700">
 </p>
+
+---
 
 > **Preuve de concept :** Les tests de simulation de pannes (arrêt forcé de services) ont démontré une remontée d'alerte vers le tableau de bord Mailpit en moins de 3 secondes, suivie d'une notification de résolution automatique dès le redémarrage.
 
-![Alerte Zabbix Mailpit](screenshots/zabbix/zabbixMailpit-alert.PNG)
+---
+
+![Alerte Zabbix Mailpit](../../screenshots/zabbix/zabbixMailpit-alert.png)

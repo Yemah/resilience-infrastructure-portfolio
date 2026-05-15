@@ -11,11 +11,11 @@ zabbix_server (Zabbix) 7.4.9
 
 zabbix_admin@srv-zabbix:~$ systemctl status zabbix-server | grep "Active:"
      Active: active (running) since Tue 2026-05-12 19:31:27 CEST; 20h ago
-
+```
 ## 2. Hardening et Optimisation du Serveur (zabbix_server.conf)
 La configuration du serveur a été épurée et durcie. Plutôt que d'utiliser les paramètres par défaut, des ajustements spécifiques ont été appliqués pour la sécurité et la performance de la base de données.
 
-Ini, TOML
+```Ini, TOML
 LogFile=/var/log/zabbix/zabbix_server.log
 PidFile=/run/zabbix/zabbix_server.pid
 SocketDir=/run/zabbix
@@ -32,16 +32,21 @@ LogSlowQueries=3000
 
 # [SECURITE] Restriction de la consultation des statistiques internes au localhost
 StatsAllowedIP=127.0.0.1
-3. Déploiement des Agents Zabbix
+```
+## 3. Déploiement des Agents Zabbix
 Le monitoring des machines internes (VLAN_SRV, VLAN_DMZ) s'effectue de manière sécurisée. Les agents sont restreints pour n'accepter les requêtes que du serveur Zabbix officiel, limitant ainsi la surface d'attaque.
 
-Ini, TOML
+```Ini, TOML
 # /etc/zabbix/zabbix_agentd.conf (Exemple sur l'agent local)
 Server=<IP_SRV_ZABBIX>
 ServerActive=<IP_SRV_ZABBIX>
 Hostname=<NOM_DU_SERVEUR_SUPERVISE>
-Note de conception : Sur les équipements ne pouvant pas recevoir d'agent (ex: pares-feux OPNsense, Switchs), la supervision est réalisée via SNMPv3 avec chiffrement et authentification forte, conformément aux recommandations de l'ANSSI.
+```
+
+---
+
+>Note de conception : Sur les équipements ne pouvant pas recevoir d'agent (ex: pares-feux OPNsense, Switchs), la supervision est réalisée via SNMPv3 avec chiffrement et authentification forte, conformément aux recommandations de l'ANSSI.
 
 <p align="center">
-  <img src="screenshots/zabbix/zabbix_monitoring-host.PNG" width="700">
+  <img src="../../screenshots/zabbix/zabbix_monitoring-host.png" width="700">
 </p>
