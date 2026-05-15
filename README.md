@@ -67,7 +67,8 @@ Au lieu d'une architecture pure Router-on-a-Stick où TOUTES les VMs passeraient
 │  │                      Untagged Access  │ │
 │  └────────────────────────────────────┘ │
 │                                         │
-│  VLANs logiques (créés dans OPNsense) : │
+│  VLANs logiques (créés dans OPNsense  |
+|sur l'interface parent vmx1(Trunk_Link)):| 
 │  ├── VLAN 111 (SRV)    → XX.XX.11.1   │
 │  ├── VLAN 222 (CLIENT) → XX.XX.22.1   │
 │  ├── VLAN 333 (DMZ)    → XX.XX.33.1   │
