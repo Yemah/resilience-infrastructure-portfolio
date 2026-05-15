@@ -85,8 +85,8 @@ Au lieu d'une architecture pure Router-on-a-Stick où TOUTES les VMs passeraient
 | Nom groupe | VLAN ID | Fonction | Type | VMs connectées |
 |------------|---------|----------|------|----------------|
 | **WAN** | **65** | Accès Internet (vers Sophos) | **Access** | FW1-vmx0, FW2-vmx0 |
-| **HA_SYNC** | **Aucun** | Lien direct FW1 ↔ FW2 | **Access** | FW1-vmx2, FW2-vmx2 |
 | **TRUNK_LINK-LAN** | **4095** | Virtual Guest Tagging (VGT) | **Trunk** | **FW1-vmx1, FW2-vmx1** |
+| **HA_SYNC** | **Aucun** | Lien direct FW1 ↔ FW2 | **Access** | FW1-vmx2, FW2-vmx2 |
 | **VLAN-SRV** | **111** | Serveurs infrastructure | **Access** | DC1, DC2, Oracle, Zabbix, Wazuh, GLPI |
 | **VLAN-CLIENT** | **222** | Postes de travail | **Access** | Poste_Admin_durcis |
 | **VLAN-DMZ** | **333** | Zone démilitarisée | **Access** | SRV-PROXY-01, SRV-WEB-01 |
