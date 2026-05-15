@@ -298,10 +298,12 @@ La protection des données HDS repose sur **Veeam Backup & Replication**.
 │   ├── firewall/      # OPNsense HA & VLANs Setup
 │   ├── monitoring/    # Zabbix Tuning & Alerting
 │   ├── proxy/         # Nginx & Authelia Zero-Trust policies
-│   └── siem/          # Wazuh Rules & FIM policies
+│   ├── siem/          # Wazuh Rules & FIM policies
+│   └── systems/       # Active Directory & GPO Hardening
 ├── screenshots/       # Preuves visuelles (Dashboards, MFA, Alerts)
 └── README.md          # Vous êtes ici
 ```
+
 📬 Contact
 
 Steeve WOMO TCHINDA
