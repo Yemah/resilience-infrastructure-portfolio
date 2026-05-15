@@ -278,6 +278,7 @@ La protection des données HDS repose sur **Veeam Backup & Replication**.
 **Ce qui différencie cette infrastructure :**
 
 - **Double firewall CARP** — basculement automatique FW1→FW2, RTO < 10s
+- **Gestion d'identités et Durcissement du Système d'information** -- Centralisation des identités(AD DS, DNS, OU), authentification chiffrée (LDAPS) et sécurisation des postes de travail via des GPOs
 - **MFA sur dossiers patients** — aucun accès sans TOTP, tracé dans Wazuh
 - **+30 règles SIEM custom HDS** — HIPAA 164.312.x taggé automatiquement
 - **Segmentation VLAN stricte** — DMZ isolée, BACKUP inaccessible depuis CLIENT
