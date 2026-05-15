@@ -42,7 +42,10 @@ CLINIQUE_COMPUTERS        OU=CLINIQUE_COMPUTERS,DC=clinique-chatelet,DC=local
 CLINIQUE_SERVICE_ACCOUNTS OU=CLINIQUE_SERVICE_ACCOUNTS,DC=clinique-chatelet,DC=local
 ```
 
-![Active Directory Users & Computers - OU](../../screenshots/ad-ds/ADUC-OU.jpg)
+>Active Directory Users & Computers - OU
+<p align="center">
+  <img src="../../screenshots/ad-ds/ADUC-OU.jpg" width="700">
+</p>
 
 ## 3. Stratégie de Sécurité Globale (GPO & Mots de passe)
 L'infrastructure s'appuie sur une flotte de Stratégies de Groupe (GPO) dédiées exclusivement au durcissement (Hardening) du système d'information, s'inspirant des recommandations de l'ANSSI.
@@ -83,4 +86,7 @@ LocalAddress LocalPort  State
 0.0.0.0            636 Listen
 ```
 
-![Autorité de Certification - LDAPS](../../screenshots/ad-ds/ADCS-LDAPS.jpg)
+>Autorité de Certification - LDAPS
+<p align="center">
+  <img src="../../screenshots/ad-ds/ADCS-LDAPS.jpg" width="700">
+</p>
