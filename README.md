@@ -104,9 +104,9 @@ Au lieu d'une architecture pure Router-on-a-Stick où TOUTES les VMs passeraient
 
 Le SI est micro-segmenté en **6 VLANs hermétiques** pour limiter la surface d'attaque et interdire les mouvements latéraux :
 
-* **VLAN 111 (SRV) :** Cœur du métier (Oracle DB, AD DS, SIEM).
+* **VLAN 111 (SRV) :** Cœur du métier (Oracle DB, GLPI, AD DS, SIEM/Monitoring Zabbix).
 * **VLAN 222 (CLIENT) :** Postes de travail durcis et sécurisés.
-* **VLAN 333 (DMZ) :** Zone d'exposition publique (Nginx, Authelia).
+* **VLAN 333 (DMZ) :** Zone d'exposition publique (Nginx, Authelia, Web GUI).
 * **VLAN 444 (BACKUP) :** Zone sanctuarisée pour la résilience (Veeam).
 * **VLAN 555 (GUEST) :** Accès Internet isolé pour les patients.
 * **VLAN 999 (MGMT) :** Flux d'administration Out-of-Band.
