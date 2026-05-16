@@ -31,7 +31,7 @@
 | NIS2-2 | Détection d'intrusion | Wazuh SIEM — règles MITRE ATT&CK, HIPAA, FIM | Wazuh 4.14.4 | ✅ Conforme |
 | NIS2-3 | Gestion des incidents | Alertes Wazuh → Mailpit → notification admin | Wazuh + Postfix | ✅ Conforme |
 | NIS2-4 | Sécurité de la chaîne d'approvisionnement | Mises à jour contrôlées par VLAN (règles firewall dédiées) | OPNsense | ✅ Conforme |
-| NIS2-5 | Continuité d'activité | Replication AD1>AD2 + HA CARP + VEEAM Backup | OPNsense + VEEAM | ✅ Conforme |
+| NIS2-5 | Continuité d'activité | Replication AD1->AD2 + HA CARP + VEEAM Backup | OPNsense + VEEAM | ✅ Conforme |
 | NIS2-6 | Chiffrement | TLS 1.2+ obligatoire, LDAPS, OpenVPN certificats | Nginx + OPNsense | ✅ Conforme |
 | NIS2-7 | Contrôle d'accès | RBAC via groupes AD, principe du moindre privilège | DC1/DC2 + Authelia | ✅ Conforme |
 | NIS2-8 | Tests de sécurité | VM Kali dédiée aux pentest (planifié) | Kali Linux | ⚠️ Planifié |
