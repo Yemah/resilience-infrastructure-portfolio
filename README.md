@@ -114,7 +114,7 @@ Le SI est micro-segmenté en **6 VLANs hermétiques** pour limiter la surface d'
 > **Visualisation de l'architecture :**
 
 <p align="center">
-  <img src="architecture/diagrams/clinique_chatelet_architecture.png" width="800" alt="Schéma de l'architecture">
+  <img src="architecture/diagrams/clinique_chatelet_architecture.p.ng" width="800" alt="Schéma de l'architecture">
 </p>
 
 ---
