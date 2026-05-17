@@ -69,12 +69,12 @@ Au lieu d'une architecture pure Router-on-a-Stick où TOUTES les VMs passeraient
 │                                         │
 │  VLANs logiques (créés dans OPNsense  |
 |sur l'interface parent vmx1(Trunk_Link)):| 
-│  ├── VLAN 111 (SRV)    → XX.XX.11.1   │
-│  ├── VLAN 222 (CLIENT) → XX.XX.22.1   │
-│  ├── VLAN 333 (DMZ)    → XX.XX.33.1   │
-│  ├── VLAN 444 (BACKUP) → XX.XX.44.1   │
-│  └── VLAN 555 (GUEST)  → XX.XX.55.1   │
-|  └── VLAN 999 (MGMT)   → XX.XX.99.1   |
+│  ├── VLAN 111 (SRV)    → 172.16.11.1   │
+│  ├── VLAN 222 (CLIENT) → 172.16.22.1   │
+│  ├── VLAN 333 (DMZ)    → 172.16.33.1   │
+│  ├── VLAN 444 (BACKUP) → 172.16.44.1   │
+│  └── VLAN 555 (GUEST)  → 172.16.55.1   │
+|  └── VLAN 999 (MGMT)   → 172.16.99.1   |
 └─────────────────────────────────────────┘
 ```
 
@@ -114,7 +114,7 @@ Le SI est micro-segmenté en **6 VLANs hermétiques** pour limiter la surface d'
 > **Visualisation de l'architecture :**
 
 <p align="center">
-  <img src="architecture/diagrams/clinique_chatelet_architecture.p.ng" width="800" alt="Schéma de l'architecture">
+  <img src="architecture/diagrams/clinique_chatelet_architecture.png" width="800" alt="Schéma de l'architecture">
 </p>
 
 ---
@@ -137,7 +137,7 @@ L'Active Directory (DC1/DC2) centralise les identités et sécurise les postes d
 ```
 ┌─────────────────────────────────────────────────────┐
 │  TIERS 1 : Sécurité & Routage (DMZ)                │
-│  SRV-PROXY-01 : XX.XX.33.10                        │
+│  SRV-PROXY-01 : 172.16.33.10                        │
 │  ├── nginx-proxy (reverse proxy + SSL/TLS)         │
 │  ├── authelia (MFA + LDAP)                         │
 │  └── mailpit (SMTP fake)                           │
@@ -145,14 +145,14 @@ L'Active Directory (DC1/DC2) centralise les identités et sécurise les postes d
               ↓ Forward si authentifié
 ┌─────────────────────────────────────────────────────┐
 │  TIERS 2 : Logique Applicative (DMZ)               │
-│  SRV-WEB-01 : XX.XX.33.20                          │
+│  SRV-WEB-01 : 172.16.33.20                          │
 │  ├── app-frontend (SPA HTML/CSS/JS)                │
 │  └── app-backend (API Node.js + RBAC)              │
 └─────────────────────────────────────────────────────┘
               ↓ Requêtes SQL
 ┌─────────────────────────────────────────────────────┐
 │  TIERS 3 : Données Sensibles (VLAN SRV - Backend)  │
-│  SRV-ORACLE-DB-01 : XX.XX.11.20                    │
+│  SRV-ORACLE-DB-01 : 172.16.11.20                    │
 │  └── Oracle Database 21c XE                        │
 │       • 2 patients en base (Labelle, Lenoir)       │
 └─────────────────────────────────────────────────────┘
